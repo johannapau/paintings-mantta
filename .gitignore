@@ -1,0 +1,11 @@
+# Ignore everything at the top level...
+/*
+
+# ...except the code folder and this file
+!/code/
+!/.gitignore
+
+# Inside code/, skip generated files
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

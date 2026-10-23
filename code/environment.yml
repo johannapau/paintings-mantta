@@ -1,0 +1,12 @@
+name: stitch
+channels:
+  - defaults
+dependencies:
+  - h5py
+  - matplotlib
+  - numpy
+  - conda-forge::scipy
+  - ipykernel
+  - ipympl
+  - conda-forge::spectral
+prefix: /home/jopariih/anaconda3/envs/stitch
