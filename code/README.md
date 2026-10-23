@@ -1,6 +1,6 @@
 # Code for the Hyperspectral Dataset of Paintings
 
-Python code and notebooks for working with the [Hyperspectral Dataset of Paintings](DATA_DOI): preprocessing raw FX10/FX17/IQ data into reflectance cubes, and widgets for inspecting the cubes.
+Python code and notebooks for working with the [Hyperspectral Dataset of Paintings](DATA_DOI): preprocessing raw FX10/FX17/IQ data into ready-to-use reflectance cubes, and widgets for inspecting the cubes.
 
 - **Data:** [DATA_DOI] (place it in `data/`, see below)
 - **Documentation of the data:** `dataset_description.pdf` in the data record
@@ -12,6 +12,7 @@ Python code and notebooks for working with the [Hyperspectral Dataset of Paintin
 ├── environment.yml
 ├── LICENSE
 ├── README.md
+├── data/                           # place data here
 └── code/
     ├── cube_tools.py               # widgets: CubeClipper, BandSurfer, SpectralExplorer
     ├── stitching_functions.py      # strip alignment and stitching (FX10, FX17)
@@ -31,23 +32,21 @@ conda env create -f environment.yml
 conda activate stitch
 ```
 
-Tested with Python [version]. The widgets run in Jupyter [and need `ipympl` / a `%matplotlib widget` backend, if that is the case].
+Tested with Python 3.14.3. The widgets are run in Jupyter Notebooks.
 
 ### 2. Data
 
-Download the dataset from [DATA_DOI] and place it in a `data/` folder next to `code/`, keeping its folder layout (`data/<camera>/raw`, `reflectance`, `gt`). The notebooks expect `[path or variable to edit]`. The cubes are large, so the code reads them with memory mapping where possible [and needs roughly X GB of RAM for full-size FX10 images].
+Download the dataset from [DATA_DOI] and place it in a `data/` folder, keeping its folder layout. The notebooks expect `[path or variable to edit]`. The cubes are large, so the code reads them with memory mapping where possible [and needs roughly X GB of RAM for full-size FX10 images].
 
 ## Preprocessing
 
-Reflectance is computed as (raw - dark) / (white - dark), then the FX10 and FX17 strips are aligned, stitched and resized.
+For all: camera captures dark reference automatically. 
+White reference strip is present in the raw data (below the painting), so crop and use that. 
+Reflectance is computed as (raw - dark) / (white - dark). 
+Then the FX10 and FX17 strips are aligned, stitched, cropped to just the painting and finally resized to match the original dimensions of the painting.
 
-| Step | Camera | Where |
-|---|---|---|
-| Strip alignment and stitching | FX10, FX17 | `stitching.ipynb` (functions in `stitching_functions.py`) |
-| Resizing to painting dimensions | FX10, FX17 | `resizing.ipynb` (function in `resize.py`) |
-| Reflectance conversion | IQ | the IQ section of `pigments.ipynb` |
+(See the code for more details)
 
-The notebooks are run in the order above. They take [raw data format] as input and save [output format] to `data/<camera>/reflectance/`.
 
 ## Widgets
 
@@ -59,9 +58,7 @@ Defined in `cube_tools.py`, with examples in [`code/cube_tools_example.ipynb`](c
 | `BandSurfer` | scroll through the bands of a cube |
 | `SpectralExplorer` | plot spectra by clicking or lassoing a region |
 
-## Paint reference spectra
 
-`pigments.ipynb` shows how the average reflectance spectra of the four acrylics were extracted. The results are in `data/<camera>/gt/`.
 
 ## Citation
 
@@ -70,7 +67,3 @@ If you use this code, please cite the code record ([CODE_DOI]) and the dataset (
 ## License
 
 MIT, see `LICENSE`.
-
-## Contact
-
-[Name, email]
