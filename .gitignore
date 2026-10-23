@@ -4,6 +4,9 @@
 # ...except the code folder and this file
 !/code/
 !/.gitignore
+!/environment.yml
+!/LICENSE
+!/README.md
 
 # Inside code/, skip generated files
 __pycache__/
