@@ -1,5 +1,6 @@
 # Ignore everything at the top level...
 /*
+*.npy
 
 # ...except the code folder and this file
 !/code/
@@ -11,4 +12,4 @@
 # Inside code/, skip generated files
 __pycache__/
 *.pyc
-.ipynb_checkpoints/
+.ipynb_checkpoints/code/clippings/pieta.npy

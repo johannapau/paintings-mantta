@@ -1,12 +1,13 @@
-name: stitch
+name: mantta2
 channels:
   - defaults
 dependencies:
-  - h5py
-  - matplotlib
-  - numpy
   - conda-forge::scipy
+  - conda-forge::spectral
+  - h5py
   - ipykernel
   - ipympl
-  - conda-forge::spectral
-prefix: /home/jopariih/anaconda3/envs/stitch
+  - matplotlib=3.9.4
+  - numpy
+  - ipywidgets
+prefix: C:\devel\anaconda3\envs\mantta2
