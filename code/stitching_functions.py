@@ -116,7 +116,7 @@ def make_strip_canvas_nanfriendly(images, width, offset,
     ordered = cropped[::-1] if reverse_for_layout else cropped
     n = len(ordered)
 
-    required_top = (n - 1) * vstep
+    required_top = (n - 1) * abs(vstep)
     top_pad = max(top_extra, required_top)
 
     total_w = n * width - offset * (n - 1) + (extra_last if n >= 1 else 0)
@@ -147,8 +147,20 @@ def make_strip_canvas_nanfriendly(images, width, offset,
 
         return blended
 
+    # def panel_origin(i):
+    #     y0 = (n - 1 - i) * vstep
+    #     x0 = i * (width - offset)
+    #     if i == n - 1:
+    #         x0 += extra_last
+    #     return y0, x0
+
     def panel_origin(i):
-        y0 = (n - 1 - i) * vstep
+        if vstep >= 0:
+            # panels step upward going right (original behavior)
+            y0 = (n - 1 - i) * vstep
+        else:
+            # panels step downward going right
+            y0 = i * (-vstep)
         x0 = i * (width - offset)
         if i == n - 1:
             x0 += extra_last
